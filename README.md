@@ -5,13 +5,64 @@
 ## Annual Update Requirements: 
 ### CARTO
 
-#### Data Publishing: 
-##### Schemas
+### Update Steps: 
+#### Data publishing:
+1. In Carto Data Explorer, upload `housing_fifty_years_community_districts_annual.csv` and `housing_fifty_years_points.csv`, overwriting the Carto features of the same name. **NOTE:** Unselect "Auto-define-the schema" and be sure to define the schemas in alignment with the schema descriptions below.
+2. Go to the `housing_fifty_years_points` Data Explorer page, and select the option to geocode the table in Carto using latitutde and longitude.
+3. In Carto Workflows, run housing_fifty_years_cd_spatalizer
+4. Open housing_fifty_years_map in edit mode and select Refresh data sources within the Sources pane.
 
-##### Steps
-- Upload [housing points] and [Community District polygons] to Carto, overwritting existing versions
-- Re-run workflows.. Maybe?
+<details>
+    <summary>Schema Details</summary>
 
+***housing_fifty_years_community_districts_annual*** (csv input)
+|excel field|carto field|type|example|field description|
+|-|-|-|-|-|
+|CDAnnualHousingID|cdannualhousingid|string|101_1972|Unique ID conisting of {cd}_{year}|
+|CD|cd|number (int64)|101|Community District number, where the first digit indicates borough. MH=1, BX=2, BK=3, QN=4, SI=5|
+|CDName|cdname|string|Financial District-Tribeca|-|
+|Borough|borough|string|Manhattan|-|
+|Year|year|number (int64)|1972|-|
+|CompletedUnits|completedunits|number (int64)|96|-|
+
+***housing_fifty_years_points.csv*** (csv input) [Must be geocoded once uploaded to Carto]
+|excel field|carto field|type|example|field description|
+|-|-|-|-|-|
+|UID|uid|string|DCP1011|Unique ID conisisting of {source_agency}_{cd}__{id/jobid}|
+|Address|address|string|123 Alphabet Ave|-|
+|CompleteYear|completeyear|number (int64)|1972|-|
+|Borough|borough|string|Manhattan|-|
+|CD|cd|number (int64)|101|-|
+|CDName|cdname|string|Financial District-Tribeca|-|
+|Units|units|number (int64)|96|-|
+|Latitude|latitude|number (float64) -> geocode to geom|40.71|-|
+|Longitude|longitude|number (float64) -> geocode to geom|-74.005|-|
+
+***dcp_community_districts*** (zipped shp input)
+|carto field|type|example|field description|
+|-|-|-|-|
+|geom|geometry|Polygon/Multipolygon|-|
+|borocd|number (int64)|101|-|
+|shape_leng|number (float64)|-|-|
+|shape_area|number (float64)|-|-|
+
+***housing_fifty_years_community_districts_annual_spatial*** (workflow output)
+|carto field|type|example|field description|
+|-|-|-|-|
+|geom|geometry|multipolygon|-|
+|cdannualhousingid|string|101_1972|Unique ID conisting of {cd}_{year}|
+|cd|string|101|-|
+|cdname|string|Financial District-Tribeca|-|
+|borough|string|Manhattan|-|
+|year|number (int64)|1972|-|
+|completedunits|number (int64)|96|-|
+
+***housing_fifity_years_nycd_centroid*** (workflow output)
+|carto field|type|example|field description|
+|-|-|-|-|
+|geom_centroid|geometry|point|-|
+|cd|string|101|-|
+</details>
 
 #### Parameters:
 - **Year Range**: Update {{start_year}} and {{end_year}} min and max values to capture the full range of the latest dataset
