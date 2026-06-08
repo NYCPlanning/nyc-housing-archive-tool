@@ -11,6 +11,7 @@
 2. Go to the `housing_fifty_years_points` Data Explorer page, and select the option to geocode the table in Carto using latitutde and longitude.
 3. In Carto Workflows, run housing_fifty_years_cd_spatalizer
 4. Open housing_fifty_years_map in edit mode and select Refresh data sources within the Sources pane.
+5. Publish the map updates.
 
 <details>
     <summary>Schema Details</summary>
