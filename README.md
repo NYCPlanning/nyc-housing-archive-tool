@@ -92,13 +92,13 @@ Map:
 
     |Name|Dataset|Query|Notes|
     |-|-|-|-|
-    |community_districts_annual_housing_summary|housing_fifty_years_community_districts_annual_spatial|[Query Link](sql\community_districts_annual_housing_summary.sql)|-|
-    |hosuing_points_parameter_filter|husing_fifty_years_points|[Query Link](sql\community_districts_driven_by_housing_points.sql)|-|
+    |community_districts_annual_housing_summary|housing_fifty_years_community_districts_annual_spatial|[Query Link](/sql/community_districts_annual_housing_summary.sql)|-|
+    |hosuing_points_parameter_filter|husing_fifty_years_points|[Query Link](/sql/community_districts_driven_by_housing_points.sql)|-|
     |housing_fifty_years_nycd_centroid|housing_fifty_years_nycd_centroid|No Query|-|
-    |Widget - Borough Aggregator|housing_fifty_years_community_districts_annual_spatial|[Query Link](sql\widget_queries.sql)|-|
-    |Widget - CD Aggregator (Top 10)|housing_fifty_years_community_districts_annual_spatial|[Query Link](sql\widget_queries.sql)|-|
-    |Widget - CD Aggregator (Bottom 10)|housing_fifty_years_community_districts_annual_spatial|[Query Link](sql\widget_queries.sql)|-|
-    |Widget - CD Aggregator (All)|housing_fifty_years_community_districts_annual_spatial|[Query Link](sql\widget_queries.sql)|-|
+    |Widget - Borough Aggregator|housing_fifty_years_community_districts_annual_spatial|[Query Link](/sql/widget_queries.sql)|-|
+    |Widget - CD Aggregator (Top 10)|housing_fifty_years_community_districts_annual_spatial|[Query Link](/sql/widget_queries.sql)|-|
+    |Widget - CD Aggregator (Bottom 10)|housing_fifty_years_community_districts_annual_spatial|[Query Link](/sql/widget_queries.sql)|-|
+    |Widget - CD Aggregator (All)|housing_fifty_years_community_districts_annual_spatial|[Query Link](/sql/widget_queries.sql)|-|
 
 - Layers
     |Layer Name|Source|Notes|Interaction Settings|Symbology|
@@ -124,8 +124,8 @@ Map:
 - Widgets
     |Type|Name|[Source](/sql/widget_queries.sql)|Configuration|
     |-|-|-|-|
-    |Table|Community District Summary|[community_districts_annual_housing_summary](sql\community_districts_annual_housing_summary.sql)|[cd:community district, cdname:name, borough, total_unit:total units]; collapsible; global|
-    |Table|Building Info|[housing_points_parameter_filter](sql\community_districts_driven_by_housing_points.sql)|[address, borough, cd:community district, cdname:name, complete_year:complete year, units:units]; collapsible; global|
+    |Table|Community District Summary|[community_districts_annual_housing_summary](/sql/community_districts_annual_housing_summary.sql)|[cd:community district, cdname:name, borough, total_unit:total units]; collapsible; global|
+    |Table|Building Info|[housing_points_parameter_filter](/sql/community_districts_driven_by_housing_points.sql)|[address, borough, cd:community district, cdname:name, complete_year:complete year, units:units]; collapsible; global|
     |Pie Chart|Aggregate Units by Borough|Widget - Borough Aggregator|by borough, SUM, aggregated by total_units, formatted as commas, cross filtering: multiple sources|
     |Category|Aggregate Units by Borough|Widget - Borough Aggregator|by borough, SUM, aggregated by total_units, formatted as commas, order by values decending, cross filtering: multiple sources, collapsible| 
     |Category|Top Contributing CDs|Widget - CD Aggregator - Top 10|by cd, SUM, aggregated by total_units, formatted as commas, order by values decending, cross filtering: multiple sources, collapsible|
