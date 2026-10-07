@@ -1,41 +1,37 @@
--- Aggregate Units by Borough (Name: Widget - Borough Aggregaotor)
+-- Aggregate Units by Borough (Name: Widget - Aggregate Units by Borough)
 SELECT 
   borough,
-  SUM(completedunits) as total_units
-FROM `INSERT_DATASET_NAME.summarized_housing_community_districts`
-WHERE year >= {{start_year}}
-  AND year <= {{end_year}}
+  SUM(units) as total_units
+FROM `carto-qualified-code.shared.housing_archive_points`
+WHERE completeyear >= {{start_year}}
+  AND completeyear <= {{end_year}}
+  AND units >= {{min_units}}
+  AND units <= {{max_units}}
 GROUP BY borough
 ORDER BY total_units DESC
 
---Aggregate Units by Community District (Top 10) (Name: Widget - CD Aggregator - Top 10)
-SELECT 
-  cd,
-  SUM(completedunits) as total_units
-FROM `INSERT_DATASET_NAME.summarized_housing_community_districts`
-WHERE year >= {{start_year}}
-  AND year <= {{end_year}}
-GROUP BY cd
-ORDER BY total_units DESC
-LIMIT 10
 
---Aggregate Units by Community District (Bottom 10) (Name: Widget - CD Aggregator - Bottom 10)
-SELECT 
-  cd,
-  SUM(completedunits) as total_units
-FROM `INSERT_DATASET_NAME.summarized_housing_community_districts`
-WHERE year >= {{start_year}}
-  AND year <= {{end_year}}
-GROUP BY cd
-ORDER BY total_units
-LIMIT 10
-
---Aggregate Units by Community District (Name: Widget - CD Aggregator - All)
-SELECT 
-  cd,
-  SUM(completedunits) as total_units
-FROM `INSERT_DATASET_NAME.summarized_housing_community_districts`
-WHERE year >= {{start_year}}
-  AND year <= {{end_year}}
-GROUP BY cd
+--Aggregate Units by Community District (Name: Widget - Aggregate Units by CD)
+SELECT
+  CONCAT(borough, ' CD ', CAST(MOD(cd_num, 100) AS STRING)) AS cd_name,
+  borough,
+  SUM(units) AS total_units
+FROM (
+  SELECT
+    CAST(cd AS INT64) AS cd_num,
+    CASE DIV(CAST(cd AS INT64), 100)
+      WHEN 1 THEN 'Manhattan'
+      WHEN 2 THEN 'Bronx'
+      WHEN 3 THEN 'Brooklyn'
+      WHEN 4 THEN 'Queens'
+      WHEN 5 THEN 'Staten Island'
+    END AS borough,
+    units
+  FROM `carto-qualified-code.shared.housing_archive_points`
+  WHERE completeyear >= {{start_year}}
+    AND completeyear <= {{end_year}}
+    AND units >= {{min_units}}
+    AND units <= {{max_units}}
+)
+GROUP BY cd_name, borough
 ORDER BY total_units DESC
