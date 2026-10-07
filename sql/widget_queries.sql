@@ -2,7 +2,7 @@
 SELECT 
   borough,
   SUM(units) as total_units
-FROM `carto-qualified-code.shared.housing_fifty_years_points`
+FROM `carto-qualified-code.shared.housing_archive_points`
 WHERE completeyear >= {{start_year}}
   AND completeyear <= {{end_year}}
   AND units >= {{min_units}}
@@ -27,7 +27,7 @@ FROM (
       WHEN 5 THEN 'Staten Island'
     END AS borough,
     units
-  FROM `carto-qualified-code.shared.housing_fifty_years_points`
+  FROM `carto-qualified-code.shared.housing_archive_points`
   WHERE completeyear >= {{start_year}}
     AND completeyear <= {{end_year}}
     AND units >= {{min_units}}

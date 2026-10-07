@@ -16,7 +16,7 @@ SELECT
     ' CD ',
     CAST(MOD(CAST(cd AS INT64), 100) AS STRING)
   ) AS cd_name
-FROM `carto-qualified-code.shared.housing_fifty_years_points`
+FROM `carto-qualified-code.shared.housing_archive_points`
 WHERE completeyear >= {{start_year}}
   AND completeyear <= {{end_year}}
   AND units >= {{min_units}}

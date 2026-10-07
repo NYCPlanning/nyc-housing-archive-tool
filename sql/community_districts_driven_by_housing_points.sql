@@ -25,7 +25,7 @@ FROM (
   --Per DCP metadata, actual community districts are numbered 1-18 within each borough; JIAs use higher district numbers.
   WHERE MOD(borocd, 100) <= 18
 ) nycd
-LEFT JOIN `carto-qualified-code.shared.housing_fifty_years_points` points
+LEFT JOIN `carto-qualified-code.shared.housing_archive_points` points
   ON ST_CONTAINS(nycd.geom, points.geom)
   AND points.completeyear >= {{start_year}}
   AND points.completeyear <= {{end_year}}
