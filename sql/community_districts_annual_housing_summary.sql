@@ -7,7 +7,7 @@ SELECT
   borough,
   SUM(completedunits) as total_units,
   ANY_VALUE(geom) as geom
-FROM `INSERT_DATASET_NAME.summarized_housing_community_districts`
+FROM `carto-qualified-code.shared.summarized_housing_community_districts`
 WHERE year >= {{start_year}}
   AND year <= {{end_year}}
 GROUP BY cd, cdname, borough
