@@ -2,8 +2,11 @@
 --Year Range and Building Size parameters, which allows user input 
 --to impact what point data is included in the data visualizations.
 
+--borough is aliased explicitly so its column name is lowercase, matching the CD polygon
+--source; widget filters with multiple-source scope only reach sources with the same column name.
 SELECT
-  * EXCEPT(cd),
+  * EXCEPT(cd, borough),
+  borough AS borough, --explicitly alias borough to lowercase to match the CD polygon source
   CAST(cd AS STRING) AS cd,
   CONCAT(
     CASE DIV(CAST(cd AS INT64), 100)
